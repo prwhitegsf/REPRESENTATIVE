@@ -1,3 +1,4 @@
+#@title Controller
 from sklearn.metrics import ConfusionMatrixDisplay,RocCurveDisplay,PrecisionRecallDisplay,DetCurveDisplay
 from sklearn.model_selection import cross_validate
 from sklearn.metrics import recall_score,precision_score,accuracy_score,d2_absolute_error_score
@@ -30,12 +31,15 @@ class ResultsViewer:
         self.labels_train = sample_data.labels_train
 
         # Visualizers
+  
         self.vgr = rv.ViewGridSearchResults()
         self.prc = rv.ViewPrecisionRecall()
         self.vcm = rv.ViewConfusionMatrix()
         self.vmm = rv.ViewModelMetrics()
         self.vroc = rv.ViewROC()
         self.vdet = rv.ViewDET()
+    
+
 
 
 
@@ -134,6 +138,7 @@ class ResultsViewer:
                                 self.labels_test,
                                 self.test_model,
                                 self.test_mode)
+    
         
       
     def show_DET(self):
@@ -158,27 +163,27 @@ class ResultsViewer:
 
     def get_train_metrics(self):
       
-        scoring = ['recall','precision','accuracy','d2_absolute_error_score']
+        scoring = ['recall','precision','accuracy']
         scores = cross_validate(self.model, self.features_train, self.labels_train,scoring=scoring)
         
-        cols = ['recall','precision','accuracy','d2_error']
+        cols = ['recall','precision','accuracy']
         cells = []
         cells.append(round(scores['test_recall'].mean(),2))
         cells.append(round(scores['test_precision'].mean(),2))
         cells.append(round(scores['test_accuracy'].mean(),2))
-        cells.append(round(scores['test_d2_absolute_error_score'].mean(),2))
+        #cells.append(round(scores['test_d2_absolute_error_score'].mean(),2))
 
         return cols, cells
 
 
     def get_test_metrics(self):
         pred = self.test_model.decision_function(self.features_test)
-        cols = ['recall','recall_micro','precision','d2_error']
+        cols = ['recall','recall_micro','precision']
         cells = []
         cells.append(round(recall_score(self.labels_test, self.predictions),3))
         cells.append(round(precision_score(self.labels_test, self.predictions),3))
         cells.append(round(accuracy_score(self.labels_test, self.predictions),3))
-        cells.append(round(d2_absolute_error_score(self.labels_test,self.predictions),3))
+        #cells.append(round(d2_absolute_error_score(self.labels_test,self.predictions),3))
         
         return cols, cells
     

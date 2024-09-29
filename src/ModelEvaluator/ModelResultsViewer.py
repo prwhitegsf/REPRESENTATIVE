@@ -5,6 +5,7 @@ from functools import partial
 
 
 
+#@title Viewer
 def eval_controller(tr):
 
 
@@ -17,16 +18,17 @@ def eval_controller(tr):
 
     stretch_roc = widgets.Layout(display='flex',
                     flex_flow='column',
-                    align_items='center',
-                    align_content='stretch',
-                    justify_content='center',
-                    width='30%')
+                    align_items='flex-start',
+                    align_content='center',
+                    justify_content='flex-start',
+                    width='30%',
+                    margin='0px 50px 0px 0px')
 
     stretch_stats = widgets.Layout(display='flex',
                     flex_flow='column',
                     align_items='stretch',
-                    width='35%',
-                    margin='0px 0px 0px 10px')
+                    width='30%',
+                    margin='10px 0px 0px 0px')
 
     center_align = widgets.Layout(display='flex',
                     flex_flow='column',
@@ -57,18 +59,25 @@ def eval_controller(tr):
     prec_test_layout = widgets.Layout(display='flex',
                     flex_flow='column',
                     align_content='flex-start',
+                    #align_items='stretch',
+                    width='30%',
+                    #justify_content='flex-start',
+                    margin='10px 50px 0px 0px')
+
+    cm_layout = widgets.Layout(display='flex',
+                    flex_flow='column',
+                    align_content='stretch',
                     align_items='stretch',
                     width='30%',
                     justify_content='flex-start',
-                    margin='10px 0px 0px 0px')
-
-    cm_layout = widgets.Layout(display='flex',
-                    flex_flow='row',
+                    margin='0px 0px 0px 20px')
+    cm2_layout = widgets.Layout(display='flex',
+                    flex_flow='column',
                     align_content='stretch',
                     align_items='stretch',
-                    width='35%',
+                    width='30%',
                     justify_content='flex-start',
-                    margin='10px 10px 0px 0px')
+                    margin='10px 0px 0px 20px')
 
     det_layout = widgets.Layout(display='flex',
                    
@@ -81,20 +90,21 @@ def eval_controller(tr):
 
     oos_test_layout = widgets.Layout(display='flex',
                     flex_flow='column',
-                    align_items='center',
-                    width='20%',
-                    justify_content='center')
+                    align_items='flex-start',
+                    width='80%',
+                    justify_content='flex-start',
+                    margin='60px 0px 0px 0px')
 
 
 
 
     record_out = widgets.Output(layout=stretch_records)
     roc_out = widgets.Output(layout=stretch_roc)
-    stats_out =  widgets.Output(layout=stretch_stats)
+    stats_out =  widgets.Output()
     det_out = widgets.Output(layout=det_layout)
 
-    cm_out = widgets.Output(layout=center_align)
-    cm2_out = widgets.Output(layout=center_align)
+    cm_out = widgets.Output(layout=cm_layout)
+    cm2_out = widgets.Output(layout=cm2_layout)
     prec_recall_out = widgets.Output()
     test_metrics_out = widgets.Output()
 
@@ -131,13 +141,15 @@ def eval_controller(tr):
 
     record_selection_box = widgets.HBox([rec_sel_label,rec_sel_dropdown],layout=rec_sel_dropdown_layout)
 
-    row_one_chart_box = widgets.HBox([record_out, roc_out,stats_out],layout=top_row_layout)
+    row_one_chart_box = widgets.HBox([record_out, roc_out,cm_out],layout=top_row_layout)
 
-    cm_box = widgets.HBox([cm_out,cm2_out],layout=cm_layout)
+    #cm_box = widgets.HBox([cm_out,cm2_out],layout=cm_layout)
+
+    ll_box = widgets.VBox([stats_out,run_oos_button],layout=stretch_stats)
 
     prec_test_box = widgets.VBox([prec_recall_out],layout=prec_test_layout)
 
-    row_two_chart_box = widgets.HBox([prec_test_box,det_out,cm_box])
+    row_two_chart_box = widgets.HBox([ll_box,prec_test_box,cm2_out])
 
 
 
@@ -164,9 +176,9 @@ def eval_controller(tr):
             roc_out.clear_output(wait=True)
             display(tr.show_ROC())
 
-        with det_out:
-            det_out.clear_output(wait=True)
-            display(tr.show_DET())
+        #with det_out:
+         #   det_out.clear_output(wait=True)
+          #  display(tr.show_DET())
 
         with prec_recall_out:
             prec_recall_out.clear_output(wait=True)
@@ -191,9 +203,9 @@ def eval_controller(tr):
             roc_out.clear_output(wait=True)
             display(dfx.show_ROC())
 
-        with det_out:
-            det_out.clear_output(wait=True)
-            display(dfx.show_DET())
+        #with det_out:
+         #   det_out.clear_output(wait=True)
+          #  display(dfx.show_DET())
 
         with prec_recall_out:
             prec_recall_out.clear_output(wait=True)
@@ -206,7 +218,7 @@ def eval_controller(tr):
 
         dfx.set_testing_model()
 
-        run_oos_button.description="Showing model performance"
+        run_oos_button.description="Showing model performance on test set"
         run_oos_button.disabled=True
         run_oos_button.style.button_color="black"
 
@@ -226,9 +238,9 @@ def eval_controller(tr):
             roc_out.clear_output(wait=True)
             display(dfx.show_ROC())
 
-        with det_out:
-            det_out.clear_output(wait=True)
-            display(dfx.show_DET())
+        #with det_out:
+         #   det_out.clear_output(wait=True)
+          #  display(dfx.show_DET())
 
         with prec_recall_out:
             prec_recall_out.clear_output(wait=True)
@@ -253,4 +265,4 @@ def eval_controller(tr):
 
 
 
-    return widgets.VBox([record_selection_box,row_one_chart_box,row_two_chart_box,run_oos_button],layout=stat_box_layout)
+    return widgets.VBox([record_selection_box,row_one_chart_box,row_two_chart_box],layout=stat_box_layout)

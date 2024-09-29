@@ -1,9 +1,13 @@
+#@title Visualizers
 import librosa.display
 import matplotlib.pyplot as plt
 import src.FeatureExplorer.FeatureExtractors as fe
 from matplotlib.colors import Normalize
 from sklearn.metrics import ConfusionMatrixDisplay,RocCurveDisplay,PrecisionRecallDisplay,DetCurveDisplay
 import numpy as np
+
+from sklearn.metrics import roc_curve, auc
+import plotly.graph_objects as go
 
 plt.ioff()
 
@@ -110,14 +114,14 @@ class ViewPrecisionRecall:
 
     def __init__(self):
 
-        self.fig = plt.figure(figsize=(4,3))
+        self.fig = plt.figure(figsize=(6,4))
        
         
     def show_precision_recall(self,train_model,features_train,features_test,labels_train,labels_test,test_model,test_mode):
         self.fig.clf()
         
         ax = self.fig.subplots()
-        self.fig.set_size_inches(4,3)
+        self.fig.set_size_inches(6,4)
         self.fig.canvas.header_visible = False
         ax.set_title("Precision Recall Curve (PRC)")
         PrecisionRecallDisplay.from_estimator(train_model, features_train, labels_train,ax=ax,name='train',plot_chance_level=True) 
@@ -141,8 +145,8 @@ class ViewPrecisionRecall:
 class ViewConfusionMatrix:
     
     def __init__(self):
-        self.train_fig = plt.figure(figsize=(4,3))
-        self.test_fig = plt.figure(figsize=(4,3))
+        self.train_fig = plt.figure(figsize=(3,3))
+        self.test_fig = plt.figure(figsize=(3,3))
 
     def show_confusion_matrix_train(self,model,features_train,labels_train):
         
@@ -182,7 +186,7 @@ class ViewModelMetrics:
         self.fig.set_size_inches(2,1.25)
         rows = ["Train Results"]
         axs = self.fig.subplots()
-        self.fig.suptitle("Model Performance")
+        self.fig.suptitle("Model Performance on Current Record")
         self.fig.canvas.header_visible = False
         self.fig.patch.set_visible(False)
         axs.axis('off')
@@ -198,7 +202,7 @@ class ViewModelMetrics:
     def show_test_metrics(self,train_record, test_record):
       
         self.fig.clf()
-        self.fig.set_size_inches(2,1.5)
+        self.fig.set_size_inches(2,1.25)
         cols = train_record[0]
         train_row = train_record[1]
         test_row = test_record[1]
@@ -214,20 +218,20 @@ class ViewModelMetrics:
         table = axs.table( colLabels=cols,rowLabels=rows,cellText=[train_row, test_row],loc='center')
         table.auto_set_font_size(False)
         table.set_fontsize(8)
-        table.scale(1.5,1.5)
+        table.scale(1.875,1.5)
         
         return self.fig
 
 class ViewROC:
 
     def __init__(self):
-        self.fig = plt.figure(figsize=(4,3),layout="constrained")
+        self.fig = plt.figure(figsize=(6,3))
 
 
     def show_ROC(self,train_model,features_train,features_test,labels_train,labels_test,test_model,test_mode):
 
         self.fig.clf()
-        self.fig.set_size_inches(4,3)
+        self.fig.set_size_inches(6,3)
         ax = self.fig.subplots()
         ax.set_title("ROC Curve")
         RocCurveDisplay.from_estimator(train_model, features_train, labels_train,ax=ax,name="train") 
@@ -237,13 +241,13 @@ class ViewROC:
             RocCurveDisplay.from_predictions(labels_test,pred,ax=ax,name="test")
         
         self.fig.canvas.header_visible = False
+        ax.set_aspect('auto')
         ax.set_ylabel('True Positive Rate')
         ax.set_xlabel('False Positive Rate')
-        self.fig.tight_layout()
+        #self.fig.tight_layout()
         return self.fig
 
-
-
+  
 
 
 class ViewDET:
@@ -266,4 +270,3 @@ class ViewDET:
         ax.set_xlabel('False Positive Rate')
         self.fig.tight_layout()
         return self.fig
-    
