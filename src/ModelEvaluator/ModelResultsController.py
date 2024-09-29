@@ -6,7 +6,7 @@ import pandas as pd
 from sklearn.svm import SVC
 import matplotlib.pyplot as plt
 import src.util.RecordVisualizer as rv
-
+from sklearn.model_selection import train_test_split
 
 
 from sklearn.model_selection import cross_validate
@@ -120,9 +120,14 @@ class ResultsViewer:
 
 
     def show_confusion_matrix_train(self):
-        return self.vcm.show_confusion_matrix_train(self.model,
-                                                    self.features_train,
-                                                    self.labels_train)
+        # gives inaccurate results from estimator so train new model and pass predictions
+        new_model = self.apply_record_to_model(self.current_record_idx)
+        x_train, x_test, y_train,y_test=train_test_split(self.features_train, self.labels_train,test_size=0.4)
+        new_model.fit(x_train,y_train)
+        p = new_model.predict(x_test)
+
+        return self.vcm.show_confusion_matrix_train(y_test,
+                                                    p)
    
 
     def show_confusion_matrix_test(self):

@@ -141,7 +141,7 @@ def eval_controller(tr):
 
     record_selection_box = widgets.HBox([rec_sel_label,rec_sel_dropdown],layout=rec_sel_dropdown_layout)
 
-    row_one_chart_box = widgets.HBox([record_out, roc_out,cm_out],layout=top_row_layout)
+    row_one_chart_box = widgets.HBox([record_out, roc_out,cm2_out],layout=top_row_layout)
 
     #cm_box = widgets.HBox([cm_out,cm2_out],layout=cm_layout)
 
@@ -149,7 +149,7 @@ def eval_controller(tr):
 
     prec_test_box = widgets.VBox([prec_recall_out],layout=prec_test_layout)
 
-    row_two_chart_box = widgets.HBox([ll_box,prec_test_box,cm2_out])
+    row_two_chart_box = widgets.HBox([ll_box,prec_test_box,cm_out])
 
 
 
@@ -170,7 +170,7 @@ def eval_controller(tr):
 
         with cm_out:
             cm_out.clear_output(wait=True)
-            display(tr.show_confusion_matrix_train())
+            #display(tr.show_confusion_matrix_train())
 
         with roc_out:
             roc_out.clear_output(wait=True)
@@ -197,7 +197,7 @@ def eval_controller(tr):
 
         with cm_out:
             cm_out.clear_output(wait=True)
-            display(dfx.show_confusion_matrix_train())
+            #display(dfx.show_confusion_matrix_train())
 
         with roc_out:
             roc_out.clear_output(wait=True)
@@ -228,7 +228,7 @@ def eval_controller(tr):
 
         with cm_out:
             cm_out.clear_output(wait=True)
-            display(dfx.show_confusion_matrix_train())
+            #display(dfx.show_confusion_matrix_train())
         
         with cm2_out:
             cm2_out.clear_output(wait=True)

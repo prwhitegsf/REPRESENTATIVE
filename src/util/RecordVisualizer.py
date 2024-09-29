@@ -148,24 +148,24 @@ class ViewConfusionMatrix:
         self.train_fig = plt.figure(figsize=(3,3))
         self.test_fig = plt.figure(figsize=(3,3))
 
-    def show_confusion_matrix_train(self,model,features_train,labels_train):
+    def show_confusion_matrix_train(self,labels_test,predictions):
         
-        self.train_fig.clf()
-        self.train_fig.set_size_inches(3,3)
-        axs = self.train_fig.subplots()
+        self.test_fig.clf()
+        self.test_fig.set_size_inches(3,3)
+        axs = self.test_fig.subplots()
         axs.set_title("Confusion Matrix Train",fontsize=12)
         
-        ConfusionMatrixDisplay.from_estimator(model, features_train, labels_train,ax=axs,colorbar=False)
-        self.train_fig.tight_layout()
-        return self.train_fig
+        ConfusionMatrixDisplay.from_predictions(labels_test,predictions,ax=axs,colorbar=False,cmap="viridis")
+        self.test_fig.tight_layout()
+        return self.test_fig
     
     def show_confusion_matrix_test(self,test_mode, labels_test,predictions):
         self.test_fig.clf()
         self.test_fig.set_size_inches(3,3)
         axs = self.test_fig.subplots()
-        axs.set_title("Confusion Matrix Test",fontsize=12)
+        axs.set_title("Confusion Matrix",fontsize=12)
         if test_mode == 1:
-            ConfusionMatrixDisplay.from_predictions(labels_test,predictions,ax=axs,colorbar=False,cmap="magma")
+            ConfusionMatrixDisplay.from_predictions(labels_test,predictions,ax=axs,colorbar=False,cmap="viridis")
         self.test_fig.tight_layout()
         return self.test_fig
 

@@ -43,6 +43,14 @@ def view_feature_controls(df):
                     width='100%',
                     justify_content='center',
                     margin='15px 0px 15px 0px')
+    
+    bb_layout = widgets.Layout(display='flex',
+                    flex_flow='row',
+                    align_content='center',
+                    align_items='center',
+                    width='100%',
+                    justify_content='center',
+                    margin='15px 0px 15px 0px')
 
 
     # Filters 
@@ -210,9 +218,6 @@ def view_feature_controls(df):
         split_data.description = "Data Split! Head to the next cell."
         split_data.style.button_color = 'blue'
 
-        #with audio_player_output:
-         #   audio_player_output.clear_output(wait=True)    
-          #  display("Data Split! Head to the next cell.")
 
     # listeners
     update_filters.on_click(partial(update_filters_handler, df))
@@ -225,7 +230,7 @@ def view_feature_controls(df):
     filter_sliders=widgets.VBox([num_mel_filters, num_mfcc_filters])
     audio_player_box = widgets.HBox(children=[audio_player_output])
     metadata_box = widgets.VBox(children=[sample_metadata_record])
-    buttons_box = widgets.HBox(children=[update_filters, nextbutton])
+    buttons_box = widgets.HBox(children=[update_filters, nextbutton],layout=bb_layout)
 
     splitter_box = widgets.VBox([data_splitter_output])
 
@@ -238,8 +243,8 @@ def view_feature_controls(df):
                             filter_sliders,
                             buttons_box,
                             metadata_box,
-                            audio_player_box,
-                            splitter_box
+                            audio_player_box
+                       
                             ],layout=md_layout)
 
     view_box = widgets.Box(children=[spectrograms_output])

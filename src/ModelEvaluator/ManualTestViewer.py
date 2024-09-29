@@ -79,6 +79,21 @@ def view_manual_controls(df,tr):
                     justify_content='center',
                     margin='15px 0px 15px 0px')
 
+    pred_box_layout = widgets.Layout(display='flex',
+                    flex_flow='row',
+                    align_content='center',
+                    align_items='center',
+                    width='100%',
+                    justify_content='center',
+                    margin='15px 0px 15px 0px')
+    
+    bb_layout = widgets.Layout(display='flex',
+                    flex_flow='row',
+                    align_content='center',
+                    align_items='center',
+                    width='100%',
+                    justify_content='center',
+                    margin='15px 0px 15px 0px')
 
     # Filters 
     # Actor Emotion
@@ -152,7 +167,8 @@ def view_manual_controls(df,tr):
     prediction = widgets.Label(value='not angry',
                                layout=ds_layout,
                                style=dict(text_color='black',
-                                        font_weight='bold'))
+                                        font_weight='bold',
+                                        font_size = '18px'))
 
 
 
@@ -248,9 +264,9 @@ def view_manual_controls(df,tr):
 
     audio_player_box = widgets.HBox(children=[audio_player_output])
     metadata_box = widgets.VBox(children=[sample_metadata_record])
-    buttons_box = widgets.HBox(children=[update_filters, nextbutton])
+    buttons_box = widgets.HBox(children=[update_filters, nextbutton],layout=bb_layout)
 
-    pred_box = widgets.VBox([prediction_out])
+    pred_box = widgets.VBox([prediction_out],layout=pred_box_layout)
 
     control_box = widgets.VBox([emotion_menu_label,
                             emotion_menu,
