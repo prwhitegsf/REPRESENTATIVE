@@ -124,11 +124,11 @@ class ViewPrecisionRecall:
         self.fig.set_size_inches(6,4)
         self.fig.canvas.header_visible = False
         ax.set_title("Precision Recall Curve (PRC)")
-        PrecisionRecallDisplay.from_estimator(train_model, features_train, labels_train,ax=ax,name='train',plot_chance_level=True) 
+        PrecisionRecallDisplay.from_estimator(train_model, features_train, labels_train,ax=ax,name='train',plot_chance_level=True,drop_intermediate=True) 
         
         if test_mode == 1:
             pred = test_model.decision_function(features_test)
-            PrecisionRecallDisplay.from_predictions(labels_test,pred,ax=ax,name="test",plot_chance_level=True)
+            PrecisionRecallDisplay.from_predictions(labels_test,pred,ax=ax,name="test",plot_chance_level=True,drop_intermediate=True)
         ax.set_aspect('auto')
         #ax.set_box_aspect(0.7)
         ax.set_ylabel('Precision')
@@ -234,11 +234,11 @@ class ViewROC:
         self.fig.set_size_inches(6,3)
         ax = self.fig.subplots()
         ax.set_title("ROC Curve")
-        RocCurveDisplay.from_estimator(train_model, features_train, labels_train,ax=ax,name="train") 
+        RocCurveDisplay.from_estimator(train_model, features_train, labels_train,ax=ax,name="train",plot_chance_level=True) 
         
         if test_mode == 1:
             pred = test_model.decision_function(features_test)
-            RocCurveDisplay.from_predictions(labels_test,pred,ax=ax,name="test")
+            RocCurveDisplay.from_predictions(labels_test,pred,ax=ax,name="test",plot_chance_level=True)
         
         self.fig.canvas.header_visible = False
         ax.set_aspect('auto')
