@@ -1,13 +1,13 @@
 #@title Visualizers
 import librosa.display
 import matplotlib.pyplot as plt
-import src.FeatureExplorer.FeatureExtractors as fe
+
 from matplotlib.colors import Normalize
 from sklearn.metrics import ConfusionMatrixDisplay,RocCurveDisplay,PrecisionRecallDisplay,DetCurveDisplay
 import numpy as np
 
-from sklearn.metrics import roc_curve, auc
-import plotly.graph_objects as go
+
+
 
 plt.ioff()
 

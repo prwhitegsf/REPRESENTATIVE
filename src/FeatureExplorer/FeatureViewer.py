@@ -2,9 +2,7 @@ import ipywidgets as widgets
 from ipywidgets import Layout
 from IPython.display import display
 from functools import partial
-import matplotlib.pyplot as plt
-import src.FeatureExplorer.SampleDataController as datacontrol
-import pandas as pd
+
 
 
 

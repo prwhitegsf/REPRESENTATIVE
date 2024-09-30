@@ -8,8 +8,6 @@ import matplotlib.pyplot as plt
 import src.FeatureExplorer.FeatureExtractors as fe
 import src.util.RecordVisualizer as rv
 
-
-from matplotlib.colors import Normalize
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
@@ -182,7 +180,6 @@ class SampleData:
         
         dfx = df.copy()
         dfx = dfx[dfx['actor'] > 2]
-        print(len(dfx))
         self.manual_test_set = df[df['actor'] <= 2].copy()
         self.manual_test_mode = 1
         labels = np.array(dfx['label'])

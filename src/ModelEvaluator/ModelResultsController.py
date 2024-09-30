@@ -1,19 +1,13 @@
 #@title Controller
-from sklearn.metrics import ConfusionMatrixDisplay,RocCurveDisplay,PrecisionRecallDisplay,DetCurveDisplay
 from sklearn.model_selection import cross_validate
-from sklearn.metrics import recall_score,precision_score,accuracy_score,d2_absolute_error_score
-import pandas as pd
+from sklearn.metrics import recall_score,precision_score,accuracy_score
 from sklearn.svm import SVC
 import matplotlib.pyplot as plt
 import src.util.RecordVisualizer as rv
 from sklearn.model_selection import train_test_split
 
 
-from sklearn.model_selection import cross_validate
-from sklearn.metrics import recall_score,precision_score,accuracy_score,d2_absolute_error_score
-import pandas as pd
-from sklearn.svm import SVC
-import matplotlib.pyplot as plt
+
 
 
 class ResultsViewer:
@@ -183,7 +177,7 @@ class ResultsViewer:
 
     def get_test_metrics(self):
         pred = self.test_model.decision_function(self.features_test)
-        cols = ['recall','recall_micro','precision']
+        cols = ['recall','precision','accuracy']
         cells = []
         cells.append(round(recall_score(self.labels_test, self.predictions),3))
         cells.append(round(precision_score(self.labels_test, self.predictions),3))
