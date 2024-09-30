@@ -74,7 +74,7 @@ class RecordMetaViewer:
         table.auto_set_font_size(False)
         table.set_fontsize(8)
         table.scale(1.5,1.5)
-        #plt.close()
+       
         return self.fig
     
 
@@ -123,7 +123,7 @@ class ViewPrecisionRecall:
         ax = self.fig.subplots()
         self.fig.set_size_inches(6,4)
         self.fig.canvas.header_visible = False
-        ax.set_title("Precision Recall Curve (PRC)")
+        ax.set_title("Precision Recall Curve (PRC)",fontsize=12)
         PrecisionRecallDisplay.from_estimator(train_model, features_train, labels_train,ax=ax,name='train',plot_chance_level=True,drop_intermediate=True) 
         
         if test_mode == 1:
@@ -233,7 +233,7 @@ class ViewROC:
         self.fig.clf()
         self.fig.set_size_inches(6,3)
         ax = self.fig.subplots()
-        ax.set_title("ROC Curve")
+        ax.set_title("ROC Curve",fontsize=12)
         RocCurveDisplay.from_estimator(train_model, features_train, labels_train,ax=ax,name="train",plot_chance_level=True) 
         
         if test_mode == 1:

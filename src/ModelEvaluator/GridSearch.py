@@ -15,11 +15,11 @@ class GridCV:
         sdf['features'] = list(df.choose_features(40,128))
         test_percentage = 0.3
         df.random_split(sdf,test_percentage)
-        print("auto-splitting: mels = 128, mfcc = 40, split 60/40 training/testing")
+        #print("auto-splitting: mels = 128, mfcc = 40, split 60/40 training/testing")
 
         self.features_train = df.features_train
         self.label_train = df.labels_train
- #0.1,0.5,0.8,1.0,1.2,1.5,2
+
     def perform_gridsearch(self):
         param_grid={
             "C" : [0.5,0.8,1.0,1.2,1.5,2],
