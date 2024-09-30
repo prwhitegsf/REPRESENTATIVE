@@ -92,7 +92,7 @@ class SampleData:
     
     def get_num_samples(self):
         return len(self.filtered_df)
-    
+    #
     def set_to_manual_testing(self):
         self.filtered_df = self.manual_test_set
     

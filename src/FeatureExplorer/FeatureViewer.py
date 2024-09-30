@@ -114,7 +114,7 @@ def view_feature_controls(df):
 
     # show the sample number and the total count according to the filter
     sample_position_in_set = widgets.Label(value="Sample : "+ 
-                                        str(df.get_current_record_number()) +
+                                        str(df.get_current_record_number() + 1) +
                                         " of "+ 
                                         str(df.get_num_samples()),
                                         layout=left_align)
@@ -193,7 +193,7 @@ def view_feature_controls(df):
                               sex=actor_sex_menu.value,
                               ids=actor_ids_menu.value)
             
-            sample_position_in_set.value="Sample : "+ str(df.get_current_record_number()) +" of "+ str(df.get_num_samples())  
+            sample_position_in_set.value="Sample : "+ str(df.get_current_record_number() + 1) +" of "+ str(df.get_num_samples())  
             
             display(df.show_record_metadata(),
                     sample_position_in_set)
@@ -225,7 +225,7 @@ def view_feature_controls(df):
             
             sample_metadata_record.clear_output(wait=True)
             
-            sample_position_in_set.value="Sample : "+ str(df.get_current_record_number()) +" of "+ str(df.get_num_samples())  
+            sample_position_in_set.value="Sample : "+ str(df.get_current_record_number() + 1) +" of "+ str(df.get_num_samples())  
             
             display(df.show_record_metadata(),
                     sample_position_in_set)

@@ -6,6 +6,9 @@ from matplotlib.colors import Normalize
 from sklearn.metrics import ConfusionMatrixDisplay,RocCurveDisplay,PrecisionRecallDisplay,DetCurveDisplay
 import numpy as np
 
+# librosa output with log scale causes matplot lib to complain
+import warnings
+warnings.filterwarnings('ignore')
 
 
 

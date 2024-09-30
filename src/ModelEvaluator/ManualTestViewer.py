@@ -8,10 +8,12 @@ import numpy as np
 
 def get_single_prediction(df,model):
     
-    record = df.get_current_record()
-
-    if record[0] == -1:
+ 
+    
+    if df.get_current_record_number() >= df.get_num_samples():
         return 'No more records in manual test set!'
+
+    record = df.get_current_record()
     
     # we need to use the same scaler fit to our trained data to scale the 
     scaler = df.scaler
@@ -125,7 +127,7 @@ def view_manual_controls(df,tr):
 
 # show the sample number and the total count according to the filter
     sample_position_in_set = widgets.Label(value="Sample : "+ 
-                                        str(df.get_current_record_number()) +
+                                        str(df.get_current_record_number()+ 1) +
                                         " of "+ 
                                         str(118),
                                         layout=left_align)
@@ -199,7 +201,7 @@ def view_manual_controls(df,tr):
                               sex=actor_sex_menu.value,
                               ids=actor_ids_menu.value)
             
-            sample_position_in_set.value="Sample : "+ str(dfx.get_current_record_number()) +" of "+ str(dfx.get_num_samples())  
+            sample_position_in_set.value="Sample : "+ str(dfx.get_current_record_number()+1) +" of "+ str(dfx.get_num_samples())  
             
             display(dfx.show_record_metadata(),
                     sample_position_in_set)
@@ -239,7 +241,7 @@ def view_manual_controls(df,tr):
             
             sample_metadata_record.clear_output(wait=True)
             
-            sample_position_in_set.value="Sample : "+ str(dfx.get_current_record_number()) +" of "+ str(dfx.get_num_samples())  
+            sample_position_in_set.value="Sample : "+ str(dfx.get_current_record_number()+ 1) +" of "+ str(dfx.get_num_samples())  
             
             display(dfx.show_record_metadata(),
                     sample_position_in_set)
